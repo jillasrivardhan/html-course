@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>form</title>
+</head>
+<style>
+  
+  body{
+    background-color: aquamarine;
+    display: flex;
+    
+    align-items: center;
+    height: 100vh;
+
+    
+  }
+  form{
+   padding: 100vh;
+   width: 100vh;
+   font-size: larger;
+   font-style: italic;
+  
+  }
+  button{
+    color: blueviolet;
+    font-weight: 500;
+    font-size: large;
+    padding: 0.5vh;
+    margin-top: 10%;
+  }
+  input{
+    padding: 0.98vh;
+    margin-bottom: 10vh;
+    color: blue;
+  }
+  label{
+    font-size: larger;
+  }
+ 
+</style>
+<body>
+  
+    <form>
+
+      <label for="name">Name</label>
+      <input type="text" name="name" id="name"><br>
+      <label for="email">Email</label>
+      <input type="text" name="email" id="email"><br>
+      
+      <label for="password">password</label>
+      <input type="password" name="password" id="password">
+      
+      <button type="submit" onclick="submit">submit</button>
+    </form>
+  
+    
+</body>
+</html>

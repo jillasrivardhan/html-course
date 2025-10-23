@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Password toggle example</title>
+  <style>
+    /* Layout for the field + button */
+    .pw-field {
+      position: relative;
+      max-width: 360px;
+      margin: 20px;
+    }
+
+    input[type="password"],
+    input[type="text"] {
+      width: 100%;
+      padding: 10px 40px 10px 12px; /* leave space for button */
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    /* Eye button inside the input */
+    .pw-toggle {
+      position: absolute;
+      right: 6px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      padding: 6px;
+      margin: 0;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 0;
+    }
+
+    /* Focus outline for accessibility */
+    .pw-toggle:focus {
+      outline: 2px solid #4a90e2;
+      border-radius: 4px;
+    }
+
+    /* Small visually-hidden helper for screen readers */
+    .sr-only {
+      position: absolute !important;
+      height: 1px; width: 1px;
+      overflow: hidden;
+      clip: rect(1px, 1px, 1px, 1px);
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <form>
+    <div class="pw-field">
+      <label for="password">Password</label>
+      <input
+        id="password"
+        name="password"
+        type="password"
+        autocomplete="current-password"
+        placeholder="Enter your password"
+        aria-describedby="pw-help"
+      />
+
+      <!-- Button toggles password visibility.
+           aria-pressed indicates state; label text for screen readers below. -->
+      <button
+        type="button"
+        class="pw-toggle"
+        id="togglePassword"
+        aria-pressed="false"
+        aria-label="Show password"
+        title="Show password"
+      >
+        <!-- Eye icon (visible state) -->
+        <svg id="iconEye" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
+          <circle cx="12" cy="12" r="2.5" fill="white"/>
+        </svg>
+
+        <!-- Eye-off icon (hidden by default) -->
+        <svg id="iconEyeOff" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="display:none">
+          <path fill="currentColor" d="M12 6a9.77 9.77 0 0 1 6.25 2.26L21 6l-2-2-2.11 2.11A9.9 9.9 0 0 0 12 4C7 4 2.73 7.11 1 11l2.03 3.14L2 15l2 2 17 0-1.45-1.45L4.27 3 3 4.27 6.73 8A9.77 9.77 0 0 1 12 6zM12 8a5 5 0 0 0-4.9 3.78L12 16a4 4 0 0 0 4-4 4.2 4.2 0 0 0-.07-.78L12 8z"/>
+        </svg>
+      </button>
+
+      <div id="pw-help" class="sr-only">Password is hidden; click the button to show it.</div>
+    </div>
+  </form>
+
+  <script>
+    (function () {
+      const pwInput = document.getElementById('password');
+      const toggle = document.getElementById('togglePassword');
+      const iconEye = document.getElementById('iconEye');
+      const iconEyeOff = document.getElementById('iconEyeOff');
+
+      // Toggle function
+      function togglePasswordVisibility() {
+        const isHidden = pwInput.type === 'password';
+        if (isHidden) {
+          pwInput.type = 'text';
+          toggle.setAttribute('aria-pressed', 'true');
+          toggle.setAttribute('aria-label', 'Hide password');
+          toggle.title = 'Hide password';
+          iconEye.style.display = 'none';
+          iconEyeOff.style.display = '';
+        } else {
+          pwInput.type = 'password';
+          toggle.setAttribute('aria-pressed', 'false');
+          toggle.setAttribute('aria-label', 'Show password');
+          toggle.title = 'Show password';
+          iconEye.style.display = '';
+          iconEyeOff.style.display = 'none';
+        }
+      }
+
+      // Click toggles visibility
+      toggle.addEventListener('click', togglePasswordVisibility);
+
+      // Keyboard: Space or Enter should also toggle (button does this by default,
+      // but this is explicit if you ever use a non-button element).
+      toggle.addEventListener('keydown', function (e) {
+        if (e.key === ' ' || e.key === 'Enter') {
+          e.preventDefault();
+          togglePasswordVisibility();
+        }
+      });
+
+      // Optional: keep focus inside password when toggling so screen readers
+      // have consistent context.
+      toggle.addEventListener('mouseup', function () { pwInput.focus(); });
+      toggle.addEventListener('mouseleave', function () { pwInput.focus(); });
+    })();
+  </script>
+</body>
+</html>

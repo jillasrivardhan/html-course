@@ -1,0 +1,35 @@
+body{
+  
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top:270px;
+  padding-bottom: 20%;
+  background-image: url('wallhaven-6lq79w.jpg');
+  background-repeat: no-repeat;
+  
+}
+pre{
+  font-size: larger;
+  border: 2px solid rgb(251, 247, 247);
+  background-color: rgb(245, 35, 35);
+  border-radius: 50px;
+  background: transparent;
+}
+  
+input[type=username]{
+  font-size: 20px;
+  font-style: italic;
+}
+input[type=password]{
+  font-size: 20px;
+  font-style: italic;
+}
+button{
+  font-size: 20px;
+  font-style: italic;
+}
+a{
+  font-size: larger;
+  font-style: italic;
+}
